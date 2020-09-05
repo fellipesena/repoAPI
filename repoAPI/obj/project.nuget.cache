@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "DO7RvqGWLikxZPR0DfBGYaj5xGfiwiWkIRU5078k/hG7hNy8OfxyaUze4CqlKPsEdoG7xvGOBspFrhCRCEw7pw==",
+  "success": true,
+  "projectFilePath": "E:\\repoAPI\\repoAPI\\repoAPI.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\Fellipe\\.nuget\\packages\\newtonsoft.json\\12.0.3\\newtonsoft.json.12.0.3.nupkg.sha512"
+  ],
+  "logs": []
+}
