@@ -14,5 +14,6 @@ namespace repoAPI.Models
         [JsonProperty("bio")] public string Bio { get; set; }
         [JsonProperty("location")] public string Location { get; set; }
         [JsonProperty("blog")] public string Blog { get; set; }
+        public List<Repository> Repositories { get; set; }
     }
 }

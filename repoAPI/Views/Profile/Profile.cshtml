@@ -1,0 +1,18 @@
+﻿@model User
+@{
+    ViewData["Title"] = "Perfil - ";
+}
+
+<div class="text-center">
+    <br />@Model.Name
+    <span>Repositórios:</span>
+    @foreach(var repository in Model.Repositories)
+    {
+        <br />@repository.Name
+        <span>Contribuidores:</span>
+        foreach(var contributor in repository.Contribuitors)
+        {
+            <br />@contributor.Login
+        }
+    }
+</div>

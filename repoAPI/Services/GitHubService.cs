@@ -3,6 +3,8 @@ using Newtonsoft.Json;
 using repoAPI.Models;
 using System;
 using System.Collections.Generic;
+using System.Data;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
@@ -28,7 +30,106 @@ namespace repoAPI.Services
 
             User user = JsonConvert.DeserializeObject<User>(result);
 
+            user.Repositories = await GetRepositoriesFromUser(user.Login);
+
             return user;
+        }
+        public async Task<Repository> GetRepositoryFromId(string id)
+        {
+            var client = _clientFactory.CreateClient("GitHub");
+
+            var response = await client.GetAsync($"/repositories/{id}");
+
+            var result = await response.Content.ReadAsStringAsync();
+
+            Repository repository = JsonConvert.DeserializeObject<Repository>(result);
+
+            repository.Contribuitors = await GetContributors(repository.FullName);
+
+            return repository;
+        }
+        public async Task<List<Repository>> GetRepositoriesFromName(string name)
+        {
+            var client = _clientFactory.CreateClient("GitHub");
+
+            var response = await client.GetAsync($"search/repositories?q={name}");
+
+            var result = await response.Content.ReadAsStringAsync();
+
+            RepositoryResponse repositoryList = JsonConvert.DeserializeObject<RepositoryResponse>(result);
+
+            List<Repository> repositories = repositoryList.Item;
+
+            string path = Directory.GetCurrentDirectory();
+
+            foreach (var repo in repositories)
+            {
+                using (StreamReader reader = new StreamReader(path + "/Services/Favourites/favourites.txt"))
+                {
+                    string id;
+                    while ((id = reader.ReadLine()) != null)
+                    {
+                        if (String.Compare(id, repo.Id) == 0)
+                        {
+                            repo.Favourite = true;
+                        }
+                    }
+                    reader.Close();
+                }
+                repo.Contribuitors = await GetContributors(repo.FullName);
+            }
+
+            return repositories;
+        }
+        public async Task<List<Repository>> GetRepositoriesFromUser(string username)
+        {
+            var client = _clientFactory.CreateClient("GitHub");
+
+            var response = await client.GetAsync($"users/{username}/repos");
+
+            var result = await response.Content.ReadAsStringAsync();
+
+            List<Repository> repositories = JsonConvert.DeserializeObject<List<Repository>>(result);
+
+            string path = Directory.GetCurrentDirectory();
+
+            foreach (var repo in repositories)
+            {
+                using (StreamReader reader = new StreamReader(path + "/Services/Favourites/favourites.txt"))
+                {
+                    string id;
+                    while ((id = reader.ReadLine()) != null)
+                    {
+                        if (String.Compare(id, repo.Id) == 0)
+                        {
+                            repo.Favourite = true;
+                        }
+                    }
+                    reader.Close();
+                }
+                repo.Contribuitors = await GetContributors(repo.FullName);
+            }
+            return repositories;
+        }
+        public async Task<List<Contributor>> GetContributors(string full_name)
+        {
+            var client = _clientFactory.CreateClient("GitHub");
+
+            var response = await client.GetAsync($"repos/{full_name}/contributors");
+
+            var result = await response.Content.ReadAsStringAsync();
+
+            List<Contributor> contributors = JsonConvert.DeserializeObject<List<Contributor>>(result);
+
+            return contributors;
+        }
+        public List<String> GetLanguages(string url)
+        {
+            string json = null;
+
+            List<string> languages = JsonConvert.DeserializeObject<List<string>>(json);
+
+            return languages;
         }
     }
 }

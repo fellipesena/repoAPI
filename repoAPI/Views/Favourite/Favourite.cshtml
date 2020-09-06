@@ -1,0 +1,18 @@
+﻿@model List<Repository>
+@{
+    ViewData["Title"] = "Favoritos - ";
+}
+
+<div class="text-center">
+    @if (Model == null)
+    {
+        <span>sim piranha, ele é nulo</span>
+    }
+    else
+    {
+        foreach (var repository in Model)
+        {
+            <br>@repository.Name
+        }
+    }
+</div>

@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http.Headers;
 using System.Security.Policy;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
@@ -25,6 +26,8 @@ namespace repoAPI
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            var access_token = "2f818a751614e494694862c2054b59471818a7a7";
+
             services.AddControllersWithViews();
             services.AddScoped<IGitHubService, GitHubService>();
             services.AddHttpClient("GitHub", c => 
@@ -32,6 +35,7 @@ namespace repoAPI
                 c.BaseAddress = new Uri("https://api.github.com");
                 c.DefaultRequestHeaders.Add("Accept", "application/vnd.github.v3+json");
                 c.DefaultRequestHeaders.Add("User-Agent", "HttpClientFactory-Sample");
+                c.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("token", access_token);
             });
         }
 
