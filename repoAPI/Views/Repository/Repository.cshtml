@@ -6,12 +6,6 @@
     <link href="@Url.Content("~/css/repository.css")" rel="stylesheet" type="text/css" />
 }
 <div class="text-center">
-    <form action="/repository" method="get">
-        <label>Buscar Repositórios</label>
-        <input class="search-txt" name="search" type="text" placeholder="Nome do repositório..." />
-        <button type="submit" class="fas fa-search"></i></button>
-    </form>
-
     @if (Model == null)
     {
         <span>sim piranha, ele é nulo</span>
