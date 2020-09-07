@@ -26,7 +26,7 @@ namespace repoAPI
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            var access_token = "";
+            //var access_token = "";
 
             services.AddControllersWithViews();
             services.AddScoped<IGitHubService, GitHubService>();
@@ -35,7 +35,7 @@ namespace repoAPI
                 c.BaseAddress = new Uri("https://api.github.com");
                 c.DefaultRequestHeaders.Add("Accept", "application/vnd.github.v3+json");
                 c.DefaultRequestHeaders.Add("User-Agent", "HttpClientFactory-Sample");
-                c.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("token", access_token);
+                //c.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("token", access_token);
             });
         }
 

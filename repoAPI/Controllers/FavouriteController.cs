@@ -53,7 +53,6 @@ namespace repoAPI.Controllers
                         if (String.Compare(linha, id) == 0)
                         {
                             exist = true;
-                            break;
                         }
                         else
                         {

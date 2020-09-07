@@ -1,6 +1,38 @@
 ﻿@{
     ViewData["Title"] = "Home Page";
 }
+@section Styles {
+    <link href="@Url.Content("~/css/index.css")" rel="stylesheet" type="text/css" />
+}
 
-<div class="text-center">
+<div class="index">
+<text class="title">Bem vindo!</text>
+<text class="subtitle">Este é um projeto cujo objetivo é demonstrar alguns conhecimentos em C#, HTML, CSS e JavaScript, desenvolvida por Fellipe Sena.</text>
+
+<section class="functions">
+    <div class="card">
+        <img src="/img/repository.png" alt="Repositório" />
+        <div class="cardinfo">
+            <text class="cardtitle">Perfil</text>
+            <text class="desc">Visualize todos os repositórios que o desenvolvedor desta aplicação possui no GitHub.</text>
+        </div>
+    </div>
+
+    <div class="card">
+        <img src="/img/star.png" alt="Estrela" />
+        <div class="cardinfo">
+            <text class="cardtitle">Favoritos</text>
+            <text class="desc">Visualize todos os repositórios que você selecionou como favorito.</text>
+        </div>
+    </div>
+    
+    <div class="card">
+        <img src="/img/search.png" alt="Lupa" />
+        <div class="cardinfo">
+            <text class="cardtitle">Buscar</text>
+            <text class="desc">Busque por repositórios do GitHub pelo nome ou parte do nome.</text>
+        </div>
+    </div>
+
+</section>
 </div>

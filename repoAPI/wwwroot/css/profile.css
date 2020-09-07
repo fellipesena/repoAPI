@@ -1,0 +1,58 @@
+﻿@import "repository.css";
+
+.profile{
+    display: flex;
+    flex-direction: column;
+    padding: 0px 10%;
+}
+
+.profile .user {
+    margin-left: auto;
+    margin-right: auto;
+    display: flex;
+    padding: 15px 25px;
+    background: #F8F8F8;
+    border-radius: 20px;
+}
+
+.profile .user img{
+    width: 200px;
+    height: 200px;
+    border: 1px solid black;
+    border-radius: 15px;
+}
+
+.profile .about{
+    display: flex;
+    flex-direction: column;
+    margin-top: auto;
+    margin-bottom: auto;
+}
+
+.profile .name{
+    font-size: 26px;
+    margin-left: 30px;
+}
+
+.profile .username{
+    font-size: 22px;
+    margin-left: 35px;
+    margin-top: 4px;
+}
+
+.profile .bio{
+    font-size: 22px;
+    margin-left: 30px;
+    margin-top: 20px;
+}
+
+.profile .infos{
+    margin-top: 25px;
+    font-size: 20px;
+    margin-left: 30px;
+    align-items: center;
+}
+
+.profile .link{
+    margin-left: 25px;
+}

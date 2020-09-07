@@ -46,6 +46,8 @@ namespace repoAPI.Services
 
             repository.Contribuitors = await GetContributors(repository.FullName);
 
+            repository.Favourite = true;
+
             return repository;
         }
         public async Task<List<Repository>> GetRepositoriesFromName(string name)
@@ -119,17 +121,21 @@ namespace repoAPI.Services
 
             var result = await response.Content.ReadAsStringAsync();
 
-            List<Contributor> contributors = JsonConvert.DeserializeObject<List<Contributor>>(result);
+            List<Contributor> contributors = new List<Contributor>();
 
+            if (result.Length > 0)
+            {
+                contributors = JsonConvert.DeserializeObject<List<Contributor>>(result);
+            }
+            else
+            {
+                contributors.Add(new Contributor()
+                {
+                    Login = "Não há contribuidores!"
+                });
+            }
             return contributors;
         }
-        public List<String> GetLanguages(string url)
-        {
-            string json = null;
-
-            List<string> languages = JsonConvert.DeserializeObject<List<string>>(json);
-
-            return languages;
-        }
+        
     }
 }

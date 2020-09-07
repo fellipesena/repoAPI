@@ -2,17 +2,57 @@
 @{
     ViewData["Title"] = "Favoritos - ";
 }
-
-<div class="text-center">
-    @if (Model == null)
-    {
-        <span>sim piranha, ele é nulo</span>
-    }
-    else
-    {
-        foreach (var repository in Model)
+@section Styles {
+    <link href="@Url.Content("~/css/repository.css")" rel="stylesheet" type="text/css" />
+}
+    <div class="repositories">
+        @{ int i = 0; }
+        @foreach (var repository in Model)
         {
-            <br>@repository.Name
+            <div class="card">
+                <div class="title">
+                    <button class="name" id="namebtn" onclick="more_information(@(i.ToString()))">@repository.Name</button>
+                    <button type="button" id="@("starbtn-" + repository.Id)" class="starbtn" onclick="add_favourite(@("\'" + repository.Id + "\'"))">
+                        @if (repository.Favourite)
+                        {
+                            <img id="@("star-" + repository.Id)" class="star-true" />
+                        }
+                        else
+                        {
+                            <img id="@("star-" + repository.Id)" class="star-false" />
+                        }
+                    </button>
+                </div>
+                <text class="fullname">@repository.FullName</text>
+
+                <div class="description" id="@("description" + i.ToString())">
+                    <div class="line"></div>
+                    <text class="desc">@repository.Description</text>
+                    <div class="details">
+                        <div class="lastupdate">
+                            <text class="title">Última atualização:</text>
+                            <text class="info">@repository.Lastupdate</text>
+                        </div>
+                        <div class="language">
+                            <text class="title">Linguagem:</text>
+                            <text class="info">@repository.Language</text>
+                        </div>
+                        <div class="owner">
+                            <text class="title">Dono do Repositório:</text>
+                            <text class="info">@repository.Owner.Login</text>
+                        </div>
+                    </div>
+                    <div class="contributors">
+                        <text class="title">Contribuidores:</text>
+                        <ul>
+                            @foreach (var contributor in repository.Contribuitors)
+                            {
+                                <li>@contributor.Login</li>
+                            }
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            i++;
         }
-    }
-</div>
+    </div>

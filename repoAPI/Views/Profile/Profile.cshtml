@@ -2,17 +2,75 @@
 @{
     ViewData["Title"] = "Perfil - ";
 }
+@section Styles {
+    <link href="@Url.Content("~/css/profile.css")" rel="stylesheet" type="text/css" />
+}
+<div class="profile">
+    <div class="user">
+        <img src="@Model.AvatarUrl" alt="Foto Perfil" />
+        <div class="about">
+            <text class="name">@Model.Name</text>
+            <text class="username">@Model.Login</text>
+            <text class="bio">@Model.Bio</text>
+            <div class="infos">
+                <i class="fas fa-map-marker-alt"></i>
+                <text>@Model.Location</text>
+                <i class="fas fa-link link"></i>
+                <a href="@Model.Blog" target="_blank">@Model.Blog/</a>
+            </div>
+        </div>
+    </div>
 
-<div class="text-center">
-    <br />@Model.Name
-    <span>Repositórios:</span>
-    @foreach(var repository in Model.Repositories)
-    {
-        <br />@repository.Name
-        <span>Contribuidores:</span>
-        foreach(var contributor in repository.Contribuitors)
+    <div class="repositories">
+        @{ int i = 0; }
+        @foreach (var repository in Model.Repositories)
         {
-            <br />@contributor.Login
+            <div class="card">
+                <div class="title">
+                    <button class="name" id="namebtn" onclick="more_information(@(i.ToString()))">@repository.Name</button>
+                    <button type="button" id="@("starbtn-" + repository.Id)" class="starbtn" onclick="add_favourite(@("\'" + repository.Id + "\'"))">
+                        @if (repository.Favourite)
+                        {
+                            <img id="@("star-" + repository.Id)" class="star-true" />
+                        }
+                        else
+                        {
+                            <img id="@("star-" + repository.Id)" class="star-false" />
+                        }
+                    </button>
+                </div>
+                <text class="fullname">@repository.FullName</text>
+                
+                <div class="description" id="@("description" + i.ToString())">
+                    <div class="line"></div>
+                    <text class="desc">@repository.Description</text>
+                    <div class="details">
+                        <div class="lastupdate">
+                            <text class="title">Última atualização:</text>
+                            <text class="info">@repository.Lastupdate</text>
+                        </div>
+                        <div class="language">
+                            <text class="title">Linguagem:</text>
+                            <text class="info">@repository.Language</text>
+                        </div>
+                        <div class="owner">
+                            <text class="title">Dono do Repositório:</text>
+                            <text class="info">@repository.Owner.Login</text>
+                        </div>
+                    </div>
+                    <div class="contributors">
+                        <text class="title">Contribuidores:</text>
+                        <ul>
+                            @foreach (var contributor in repository.Contribuitors)
+                            {
+                                <li>@contributor.Login</li>
+                            }
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            i++;
         }
-    }
+    </div>
+
 </div>
